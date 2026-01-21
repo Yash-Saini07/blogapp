@@ -1,3 +1,4 @@
+
 import React from 'react';
 import mongoose from 'mongoose';
 import dbConnect from '@/lib/database';
@@ -5,6 +6,7 @@ import Blog from '@/models/blog';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getShikiHighlighter } from '@/lib/shiki';
+import CldImageWrapper from '@/components/CldImageWrapper';
 
 // Markdown Imports
 import ReactMarkdown from 'react-markdown';
@@ -138,7 +140,7 @@ export default async function Page({
 
                     {/* Cover Image */}
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg bg-gray-100">
-                        <Image
+                        <CldImageWrapper
                             src={blog.image || 'https://placehold.co/1200x675/png'}
                             alt={blog.title}
                             fill
@@ -166,9 +168,9 @@ export default async function Page({
                         <ReactMarkdown
                             remarkPlugins={[remarkGfm]}
                             rehypePlugins={[
+                                rehypeSanitize, // Sanitize first to allow subsequent plugins to add safe attributes (like IDs)
                                 rehypeSlug,
                                 [rehypeAutolinkHeadings, { behavior: 'wrap' }],
-                                rehypeSanitize // Prevents XSS attacks
                             ]}
                             components={{
                                 code: ({ className, children }: CodeProps) => {

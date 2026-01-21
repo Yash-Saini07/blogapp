@@ -18,6 +18,7 @@ import {
   SelectLabel
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import CloudinaryUpload from '@/components/CloudinaryUpload';
 
 export default async function EditBlogPage({ params }: { params: { id: string } }) {
   // 1. Get the ID from the URL
@@ -81,16 +82,11 @@ export default async function EditBlogPage({ params }: { params: { id: string } 
               </SelectContent>
             </Select>
           </div>
-              <br />
+          <br />
           {/* Image */}
           <div>
             <FieldLabel className="block text-sm font-medium text-foreground mb-2">Cover Image URL</FieldLabel>
-            <Input
-              name="image"
-              type="text"
-              defaultValue={blog.image} // <--- PRE-FILL DATA
-              className='w-full max-w-100'
-            />
+            <CloudinaryUpload defaultValue={blog.image} />
           </div>
 
           {/* Description */}

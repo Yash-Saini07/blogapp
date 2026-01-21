@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/select';
 import { ThemeToggleButton } from '@/components/ui/skiper26';
 import { Button } from '@/components/ui/button';
+import CloudinaryUpload from '@/components/CloudinaryUpload';
 
 export default function AddBlogPage() {
     return (
@@ -74,7 +75,7 @@ export default function AddBlogPage() {
                             </SelectContent>
                         </Select>
                     </div>
-                    <br />  
+                    <br />
                     {/* Image URL Input */}
                     <div>
                         <label className="block text-sm font-medium text-foreground mb-2">Cover Image URL</label>
@@ -84,13 +85,7 @@ export default function AddBlogPage() {
                             placeholder="e.g., /images/my-pic.png"
                             className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
                         /> */}
-                        <Input
-                            name="image"
-                            type="text"
-                            required
-                            placeholder="e.g., /images/my-pic.png"
-                            className="bg-secondary/80 border-transparent focus:border-ring w-full max-w-100"
-                        />
+                        <CloudinaryUpload />
                     </div>
 
                     {/* Description */}

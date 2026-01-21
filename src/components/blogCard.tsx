@@ -1,6 +1,8 @@
+
 import React, { useId, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { CldImage } from "next-cloudinary";
 
 interface BlogCardProps {
   id: string;
@@ -116,7 +118,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
             <div className="absolute inset-0 bg-linear-to-r from-gray-100 to-gray-200 animate-pulse dark:from-gray-800 dark:to-gray-700" />
           )}
 
-          <Image
+          <CldImage
             src={displayImage}
             alt={title}
             fill
