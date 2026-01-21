@@ -3,6 +3,8 @@ import Subscriber from '@/models/subscriber';
 import { deleteSubscriber } from '@/actions/deleteSubscriber';
 import { Button } from '@/components/ui/button';
 import { ThemeToggleButton } from '@/components/ui/skiper26';
+export const dynamic = 'force-dynamic'
+
 export default async function SubscriptionsPage() {
   // 1. Connect and Fetch Data
   await connectDB();

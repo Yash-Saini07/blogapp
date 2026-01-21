@@ -4,6 +4,8 @@ import AdminBlogRow from '@/components/AdminBlogRow';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ThemeToggleButton } from '@/components/ui/skiper26';
+export const dynamic = 'force-dynamic'
+
 export default async function BlogListPage() {
   await connectDB();
 
