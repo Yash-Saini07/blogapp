@@ -198,7 +198,7 @@ export default async function Page({
 
                                     return (
                                         <div
-                                            className="not-prose my-6 w-full rounded-lg overflow-hidden [&_pre]:m-0! [&_pre]:p-6! [&_pre]:w-full! [&_pre]:rounded-lg! [&_pre]:overflow-x-auto [&_code]:text-base! [&_code]:font-mono!"
+                                            className="not-prose my-6 w-full rounded-lg overflow-hidden [&_pre]:m-0! [&_pre]:p-6! [&_pre]:w-full! [&_pre]:bg-[#1E2939]! [&_pre]:rounded-lg! [&_pre]:overflow-x-auto [&_code]:text-base! [&_code]:font-mono!"
                                             dangerouslySetInnerHTML={{ __html: html }}
                                         />
                                     );
