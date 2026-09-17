@@ -6,7 +6,7 @@ import Blog from '@/models/blog';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getShikiHighlighter } from '@/lib/shiki';
-import CldImageWrapper from '@/components/CldImageWrapper';
+
 
 // Markdown Imports
 import ReactMarkdown from 'react-markdown';
@@ -140,10 +140,11 @@ export default async function Page({
 
                     {/* Cover Image */}
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg bg-gray-100">
-                        <CldImageWrapper
-                            src={blog.image || 'https://placehold.co/1200x675/png'}
+                        <Image
+                            src={blog.image && blog.image.length > 10 ? blog.image : 'https://placehold.co/1200x675/png'}
                             alt={blog.title}
                             fill
+                            unoptimized={true}
                             priority
                             className="object-cover"
                         />
@@ -186,7 +187,13 @@ export default async function Page({
                                     }
 
                                     // Block code → Shiki
-                                    const language = className.replace('language-', '') || 'ts';
+                                    let language = className.replace('language-', '') || 'text';
+                                    
+                                    // Fallback to text if language isn't pre-loaded in shiki.ts to prevent crashes
+                                    const loadedLangs = highlighter.getLoadedLanguages();
+                                    if (!loadedLangs.includes(language)) {
+                                        language = 'text';
+                                    }
 
                                     const html = highlighter.codeToHtml(
                                         String(children).trim(),

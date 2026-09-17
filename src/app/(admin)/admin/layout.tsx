@@ -1,6 +1,7 @@
 import AdminSidebar from '@/components/AdminSidebar';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 export default async function AdminLayout({
   children,
@@ -8,7 +9,7 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   // Double check session on server side for extra security
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   if (!session) {
     redirect('/login');

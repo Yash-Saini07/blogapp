@@ -2,7 +2,6 @@
 import React, { useId, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CldImage } from "next-cloudinary";
 
 interface BlogCardProps {
   id: string;
@@ -118,10 +117,11 @@ const BlogCard: React.FC<BlogCardProps> = ({
             <div className="absolute inset-0 bg-linear-to-r from-gray-100 to-gray-200 animate-pulse dark:from-gray-800 dark:to-gray-700" />
           )}
 
-          <CldImage
+          <Image
             src={displayImage}
             alt={title}
             fill
+            unoptimized={true}
             sizes="(max-width: 640px) 100vw, 50vw"
             onLoadingComplete={() => setImgLoaded(true)}
             className={`object-cover transition-transform duration-500 group-hover:scale-105 ${imgLoaded ? "opacity-100" : "opacity-0"}`}

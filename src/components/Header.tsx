@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
-import { Button } from '@/components/ui/button'
-import { Sun, Moon } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 // A modern, animated header that works with next-themes (class strategy) and shadcn Button

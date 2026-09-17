@@ -18,7 +18,9 @@ import {
   SelectLabel
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import CloudinaryUpload from '@/components/CloudinaryUpload';
+import ImageUpload from '@/components/ImageUpload';
+
+import { FormFieldset, SubmitButton } from '@/components/FormStatusWrapper';
 
 export default async function EditBlogPage({ params }: { params: { id: string } }) {
   // 1. Get the ID from the URL
@@ -49,82 +51,77 @@ export default async function EditBlogPage({ params }: { params: { id: string } 
       </div>
 
       <form action={updateBlogWithId} className="bg-card p-8 rounded-lg shadow-md border border-border">
+        <FormFieldset>
+          {/* Top Section */}
+          <div className="grid grid-cols-1 gap-6 mb-6">
 
-        {/* Top Section */}
-        <div className="grid grid-cols-1 gap-6 mb-6">
+            {/* Title */}
+            <div className="col-span-2">
+              <FieldLabel className="block text-sm font-medium text-foreground mb-2">Blog Title</FieldLabel>
+              <Input
+                name="title"
+                type="text"
+                defaultValue={blog.title} // <--- PRE-FILL DATA
+                required
 
-          {/* Title */}
-          <div className="col-span-2">
-            <FieldLabel className="block text-sm font-medium text-foreground mb-2">Blog Title</FieldLabel>
-            <Input
-              name="title"
-              type="text"
-              defaultValue={blog.title} // <--- PRE-FILL DATA
-              required
+              />
+            </div>
 
+            {/* Type */}
+            <div>
+              <FieldLabel className="block text-sm font-medium text-foreground mb-2">Category</FieldLabel>
+              <Select required name="type" defaultValue={blog.type}>
+                <SelectTrigger className='w-full max-w-48'>
+                  <SelectValue placeholder="Select Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Category</SelectLabel>
+                    <SelectItem value="Technology">Technology</SelectItem>
+                    <SelectItem value="Lifestyle">Lifestyle</SelectItem>
+                    <SelectItem value="Travel">Travel</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <br />
+            {/* Image */}
+            <div>
+              <FieldLabel className="block text-sm font-medium text-foreground mb-2">Cover Image URL</FieldLabel>
+              <ImageUpload defaultValue={blog.image} />
+            </div>
+
+            {/* Description */}
+            <div className="col-span-2">
+              <FieldLabel className="block text-sm font-medium text-foreground mb-2">Short Description</FieldLabel>
+              <Textarea
+                name="description"
+                rows={2}
+                required
+                defaultValue={blog.description} // <--- PRE-FILL DATA
+
+              ></Textarea>
+            </div>
+
+          </div>
+
+          {/* Body Editor */}
+          <div className="mt-8">
+            <FieldLabel className="block text-sm font-medium text-foreground mb-2">
+              Content (Markdown Supported)
+            </FieldLabel>
+
+            <Textarea
+              name="body"
+              defaultValue={blog.body} // <--- PRE-FILL DATA
             />
           </div>
 
-          {/* Type */}
-          <div>
-            <FieldLabel className="block text-sm font-medium text-foreground mb-2">Category</FieldLabel>
-            <Select required name="type" defaultValue={blog.type}>
-              <SelectTrigger className='w-full max-w-48'>
-                <SelectValue placeholder="Select Category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Category</SelectLabel>
-                  <SelectItem value="Technology">Technology</SelectItem>
-                  <SelectItem value="Lifestyle">Lifestyle</SelectItem>
-                  <SelectItem value="Travel">Travel</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+          {/* Submit Button */}
+          <div className="mt-8 flex justify-end gap-4">
+            <SubmitButton defaultText="Update Blog" pendingText="Publishing..." />
           </div>
-          <br />
-          {/* Image */}
-          <div>
-            <FieldLabel className="block text-sm font-medium text-foreground mb-2">Cover Image URL</FieldLabel>
-            <CloudinaryUpload defaultValue={blog.image} />
-          </div>
-
-          {/* Description */}
-          <div className="col-span-2">
-            <FieldLabel className="block text-sm font-medium text-foreground mb-2">Short Description</FieldLabel>
-            <Textarea
-              name="description"
-              rows={2}
-              required
-              defaultValue={blog.description} // <--- PRE-FILL DATA
-
-            ></Textarea>
-          </div>
-
-        </div>
-
-        {/* Body Editor */}
-        <div className="mt-8">
-          <FieldLabel className="block text-sm font-medium text-foreground mb-2">
-            Content (Markdown Supported)
-          </FieldLabel>
-
-          <Textarea
-            name="body"
-            defaultValue={blog.body} // <--- PRE-FILL DATA
-          />
-        </div>
-
-        {/* Submit Button */}
-        <div className="mt-8 flex justify-end gap-4">
-          <Button
-            variant={"default"}
-            type="submit"
-          >
-            Update Blog
-          </Button>
-        </div>
-
+        </FormFieldset>
       </form>
     </div>
   );
