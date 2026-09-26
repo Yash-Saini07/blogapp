@@ -1,7 +1,6 @@
 import connectDB from '@/lib/database';
 import Blog from '@/models/blog';
 import { updateBlog } from '@/actions/updateBlog';
-import AutoResizeTextarea from '@/components/AutoResizeTextarea'; // Reusing your component
 import { ThemeToggleButton } from '@/components/ui/skiper26';
 import { FieldLabel } from '@/components/ui/field';
 import { Textarea } from '@/components/ui/textarea';

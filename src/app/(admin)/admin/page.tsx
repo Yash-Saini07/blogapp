@@ -54,14 +54,6 @@ export default async function AdminDashboard() {
                 <span className="text-4xl font-extrabold text-purple-600 dark:text-purple-400">{blogCount}</span>
                 <span className="text-sm text-gray-400">posts</span>
               </div>
-              <AnimatedCircularProgressBar
-                max={100}
-                min={0}
-                value={blogCount}
-                gaugePrimaryColor="#9333ea"
-                gaugeSecondaryColor="#f3e8ff"
-                className="size-20 text-lg"
-              />
             </div>
           </CardContent>
         </Card>
@@ -77,14 +69,6 @@ export default async function AdminDashboard() {
                 <span className="text-4xl font-extrabold text-blue-600 dark:text-blue-400">{subscriberCount}</span>
                 <span className="text-sm text-gray-400">users</span>
               </div>
-              <AnimatedCircularProgressBar
-                max={1000}
-                min={0}
-                value={subscriberCount}
-                gaugePrimaryColor="#2563eb"
-                gaugeSecondaryColor="#dbeafe"
-                className="size-20 text-lg"
-              />
             </div>
           </CardContent>
         </Card>
@@ -103,14 +87,6 @@ export default async function AdminDashboard() {
                 </span>
                 <span className="text-sm text-gray-400">reads</span>
               </div>
-              <AnimatedCircularProgressBar
-                max={10000}
-                min={0}
-                value={totalViews}
-                gaugePrimaryColor="#16a34a"
-                gaugeSecondaryColor="#dcfce7"
-                className="size-20 text-lg"
-              />
             </div>
           </CardContent>
         </Card>
