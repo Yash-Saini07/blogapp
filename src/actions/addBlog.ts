@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { uploadImage } from '@/lib/uploadImage';
 
+const img_placeholder_url = "https://placehold.co/600x400/png";
+
 export async function addBlog(formData: FormData) {
   // 1. Get data from form fields
   const title = formData.get('title');
@@ -22,7 +24,7 @@ export async function addBlog(formData: FormData) {
   }
 
   // 3. Handle Image Upload
-  let finalImageUrl = existingImage || '';
+  let finalImageUrl = existingImage || img_placeholder_url;
   if (imageFile && imageFile.size > 0) {
     finalImageUrl = await uploadImage(imageFile);
   }

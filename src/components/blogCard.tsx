@@ -123,7 +123,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
             fill
             unoptimized={true}
             sizes="(max-width: 640px) 100vw, 50vw"
-            onLoadingComplete={() => setImgLoaded(true)}
+            onLoad={() => setImgLoaded(true)}
             className={`object-cover transition-transform duration-500 group-hover:scale-105 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
           />
 

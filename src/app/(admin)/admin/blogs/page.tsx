@@ -25,10 +25,7 @@ export default async function BlogListPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 sm:gap-0">
         <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-start">
           <h1 className="text-3xl font-bold">Manage Blogs</h1>
-          <Link
-            href="/admin/blogs/add"
-          // className="bg-black text-white px-5 py-2 rounded-lg font-medium hover:bg-gray-800 transition"
-          >
+          <Link href="/admin/blogs/add">
             <Button variant={"outline"}>Create New+</Button>
           </Link>
         </div>

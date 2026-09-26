@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { GripHorizontal } from "lucide-react";
 import { useTheme } from "next-themes";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -329,16 +329,24 @@ export const useThemeToggle = ({
 } = {}) => {
     const { theme, setTheme, resolvedTheme } = useTheme();
 
-    const [isDark, setIsDark] = useState(false);
+    const [manualIsDark, setManualIsDark] = useState<boolean | null>(null);
+    const [shouldAnimate, setShouldAnimate] = useState(false);
+    const hasResolvedInitialTheme = useRef(false);
+    const isDark = manualIsDark ?? resolvedTheme === "dark";
 
-    // Sync isDark state with resolved theme after hydration
+    // Enable icon animation only after the initial theme has been resolved.
     useEffect(() => {
-        setIsDark(resolvedTheme === "dark");
+        if (!resolvedTheme) return;
+
+        if (!hasResolvedInitialTheme.current) {
+            hasResolvedInitialTheme.current = true;
+            requestAnimationFrame(() => setShouldAnimate(true));
+        }
     }, [resolvedTheme]);
 
     const styleId = "theme-transition-styles";
 
-    const updateStyles = useCallback((css: string, name: string) => {
+    const updateStyles = useCallback((css: string) => {
         if (typeof window === "undefined") return;
 
         let styleElement = document.getElementById(styleId) as HTMLStyleElement;
@@ -355,9 +363,9 @@ export const useThemeToggle = ({
     // Generic helper for theme switching with animation
     const applyThemeWithAnimation = useCallback(
         (newTheme: string, shouldSetIsDark: boolean) => {
-            setIsDark(shouldSetIsDark);
+            setManualIsDark(shouldSetIsDark);
             const animation = createAnimation(variant, start, blur, gifUrl);
-            updateStyles(animation.css, animation.name);
+            updateStyles(animation.css);
 
             if (typeof window === "undefined") return;
 
@@ -396,7 +404,7 @@ export const useThemeToggle = ({
 
     return {
         isDark,
-        setIsDark,
+        shouldAnimate,
         toggleTheme,
         setCrazyLightTheme,
         setCrazyDarkTheme,
@@ -419,7 +427,7 @@ export const ThemeToggleButton = ({
     blur?: boolean;
     gifUrl?: string;
 }) => {
-    const { isDark, toggleTheme } = useThemeToggle({
+    const { isDark, shouldAnimate, toggleTheme } = useThemeToggle({
         variant,
         start,
         blur,
@@ -440,7 +448,7 @@ export const ThemeToggleButton = ({
             <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <motion.g
                     animate={{ rotate: isDark ? -180 : 0 }}
-                    transition={{ ease: "easeInOut", duration: 0.5 }}
+                    transition={{ ease: "easeInOut", duration: shouldAnimate ? 0.5 : 0 }}
                 >
                     <path
                         d="M120 67.5C149.25 67.5 172.5 90.75 172.5 120C172.5 149.25 149.25 172.5 120 172.5"
@@ -453,7 +461,7 @@ export const ThemeToggleButton = ({
                 </motion.g>
                 <motion.path
                     animate={{ rotate: isDark ? 180 : 0 }}
-                    transition={{ ease: "easeInOut", duration: 0.5 }}
+                    transition={{ ease: "easeInOut", duration: shouldAnimate ? 0.5 : 0 }}
                     d="M120 3.75C55.5 3.75 3.75 55.5 3.75 120C3.75 184.5 55.5 236.25 120 236.25C184.5 236.25 236.25 184.5 236.25 120C236.25 55.5 184.5 3.75 120 3.75ZM120 214.5V172.5C90.75 172.5 67.5 149.25 67.5 120C67.5 90.75 90.75 67.5 120 67.5V25.5C172.5 25.5 214.5 67.5 214.5 120C214.5 172.5 172.5 214.5 120 214.5Z"
                     fill="white"
                 />
